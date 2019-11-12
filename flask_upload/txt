@@ -1,0 +1,43 @@
+
+
+
+login = LoginManager(app)
+LoginManager.session_protection = "strong"
+app.secret_key = os.urandom(12)
+
+username = userdetails['username']
+
+
+
+
+@app.route('/upload',methods=[ "GET",'POST'])
+def upload():
+    print("¤W²î¤¤....")
+    uploaded_file=request.files['inputFile']
+    # uploaded_files = request.files.getlist("inputFile")    
+    
+    if uploaded_file.filename == '':
+        print('No selected file')    
+        return ("",204)
+
+    if uploaded_file and allowed_file(uploaded_file.filename):
+        filename = secure_filename(uploaded_file.filename)
+        print (filename)
+        uploaded_file.save(os.path.join("./static", filename))
+        session['pdffileName']=filename
+        
+
+        return ("",204)
+
+
+
+
+<div class="container">
+  <form id="uploadform" method="POST" enctype='multipart/form-data' action="/upload"  class="well">
+    <input id="selectbutton" type='file' name='inputFile' multiple="multiple" >
+    <button id="uploadbutton" type="submit" class="btn btn-primary">Upload</button>
+    </form>
+</div>
+
+
+
