@@ -27,7 +27,7 @@ def upload():
     if uploaded_file and allowed_file(uploaded_file.filename):
         filename = secure_filename(uploaded_file.filename)
         print (filename)
-        uploaded_file.save(os.path.join("./", filename))
+        uploaded_file.save(os.path.join("./", uploaded_file.filename))
        
         
 
